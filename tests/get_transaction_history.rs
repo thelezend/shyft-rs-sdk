@@ -1,6 +1,6 @@
 mod common;
 
-use shyft_rs_sdk::api::ShyftApi;
+use shyft_rs_sdk::ShyftApi;
 
 #[tokio::test]
 async fn test_get_transaction_history() {

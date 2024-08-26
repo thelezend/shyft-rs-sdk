@@ -1,6 +1,6 @@
 mod common;
 
-use shyft_rs_sdk::api::ShyftApi;
+use shyft_rs_sdk::ShyftApi;
 
 #[tokio::test]
 async fn test_get_parsed_transaction_details() {
@@ -17,7 +17,7 @@ async fn test_get_parsed_transaction_details() {
     let shyft_api = ShyftApi::new(&api_key, None, None, None).expect("Failed to create ShyftApi");
 
     // Fetch parsed transaction details
-    let parsed_transaction_details = shyft_api.get_parsed_transaction_details(tx_signature).await;
+    let parsed_transaction_details = shyft_api.get_transaction_parsed(tx_signature).await;
 
     // Assert that the parsed transaction details are fetched successfully
     assert!(
