@@ -22,7 +22,7 @@ shyft-rs-sdk = { git = "https://github.com/thelezend/shyft-rs-sdk.git", branch =
 ### Creating a ShyftApi Instance
 
 ```rust
-use shyft_rs_sdk::api::ShyftApi;
+use shyft_rs_sdk::ShyftApi;
 let api_key = "your_api_key";
 let shyft_api = ShyftApi::new(api_key, None, None, None).expect("Failed to create ShyftApi");
 ```
