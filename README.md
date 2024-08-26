@@ -14,7 +14,7 @@ Add the following to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-shyft-sdk = "0.1.0"
+shyft-sdk = { git = "https://github.com/thelezend/shyft-sdk.git", branch = "main"}
 ```
 
 ## Usage
