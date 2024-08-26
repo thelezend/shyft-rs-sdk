@@ -1,6 +1,6 @@
 # Shyft Rust SDK
 
-Shyft SDK is a Rust library for interacting with the Shyft API, providing functionalities to fetch transaction history and parsed transaction details. New api requests will be added if needed.
+Shyft SDK is a Rust library for interacting with the [Shyft API](https://docs.shyft.to/), providing basic functionalities to fetch transaction history and parsed transaction details. New api requests will be added based on future needs.
 
 ## Features
 
