@@ -14,7 +14,7 @@ Add the following to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-shyft-sdk = { git = "https://github.com/thelezend/shyft-sdk.git", branch = "main"}
+shyft-rs-sdk = { git = "https://github.com/thelezend/shyft-rs-sdk.git", branch = "main"}
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ shyft-sdk = { git = "https://github.com/thelezend/shyft-sdk.git", branch = "main
 ### Creating a ShyftApi Instance
 
 ```rust
-use shyft_sdk::api::ShyftApi;
+use shyft_rs_sdk::api::ShyftApi;
 let api_key = "your_api_key";
 let shyft_api = ShyftApi::new(api_key, None, None, None).expect("Failed to create ShyftApi");
 ```
