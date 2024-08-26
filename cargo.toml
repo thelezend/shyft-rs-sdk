@@ -1,5 +1,5 @@
 [package]
-name = "shyft-sdk"
+name = "shyft-rs-sdk"
 version = "0.1.0"
 edition = "2021"
 
