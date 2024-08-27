@@ -4,10 +4,7 @@ use std::{collections::HashMap, time::Duration};
 
 use reqwest::header;
 
-use crate::{
-    constants,
-    reqwest_ext::{self, get_retry_strategy},
-};
+use crate::{constants, reqwest_ext::get_retry_strategy};
 
 /// Struct representing the Shyft API client
 #[derive(Debug, Clone)]
@@ -17,24 +14,24 @@ pub struct ShyftApi {
 }
 
 impl ShyftApi {
-    /// Creates a new instance of ShyftApi
+    /// Creates a new instance of `ShyftApi`.
     ///
     /// # Arguments
     ///
-    /// * `api_key` - A string slice that holds the API key.
+    /// * `api_key` - A string slice holding the API key.
     /// * `min_retry_interval` - An optional minimum retry interval in milliseconds.
     /// * `max_retry_interval` - An optional maximum retry interval in milliseconds.
     /// * `max_retries` - An optional maximum number of retries.
     ///
     /// # Returns
     ///
-    /// * `Result<Self, reqwest_ext::Error>` - A result containing the ShyftApi instance or an error.
+    /// * `Result<Self, crate::error::Error>` - A result containing the `ShyftApi` instance or an error.
     pub fn new(
         api_key: &str,
         min_retry_interval: Option<u64>,
         max_retry_interval: Option<u64>,
         max_retries: Option<u32>,
-    ) -> Result<Self, reqwest_ext::Error> {
+    ) -> Result<Self, crate::error::Error> {
         let mut headers = header::HeaderMap::new();
 
         let mut auth_value = header::HeaderValue::from_str(api_key).unwrap();

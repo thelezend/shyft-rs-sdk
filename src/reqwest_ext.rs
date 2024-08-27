@@ -5,22 +5,6 @@ use reqwest_retry::{
     RetryTransientMiddleware, Retryable, RetryableStrategy,
 };
 
-/// Custom error type for Shyft API interactions
-#[derive(Debug, thiserror::Error)]
-pub enum Error {
-    /// Error originating from the reqwest library
-    #[error("Reqwest error: {0}")]
-    Reqwest(#[from] reqwest::Error),
-
-    /// Error originating from the reqwest middleware
-    #[error("Reqwest middleware error: {0}")]
-    ReqwestMiddleware(#[from] reqwest_middleware::Error),
-
-    /// Error indicating that the response status was not 200 OK
-    #[error("Response status not 200: {0}")]
-    StatusNot200(String),
-}
-
 /// Creates a retry strategy using exponential backoff.
 ///
 /// # Arguments

@@ -2,7 +2,6 @@ use crate::{
     api::ShyftApi,
     constants,
     models::{self, parsed_transaction_details::ParsedTransactionDetails},
-    reqwest_ext,
 };
 
 impl ShyftApi {
@@ -14,11 +13,11 @@ impl ShyftApi {
     ///
     /// # Returns
     ///
-    /// * `Result<ParsedTransactionDetails, reqwest_ext::Error>` - A result containing the parsed transaction details or an error.
+    /// * `Result<ParsedTransactionDetails, crate::error::Error>` - A result containing the parsed transaction details or an error.
     pub async fn get_transaction_parsed(
         &self,
         tx_signature: &str,
-    ) -> Result<ParsedTransactionDetails, reqwest_ext::Error> {
+    ) -> Result<ParsedTransactionDetails, crate::error::Error> {
         let url = format!("{}transaction/parsed", constants::URL);
         let response = self
             .client
@@ -29,7 +28,7 @@ impl ShyftApi {
             .await?;
 
         if !response.status().is_success() {
-            return Err(reqwest_ext::Error::StatusNot200(response.text().await?));
+            return Err(crate::error::Error::StatusNot200(response.text().await?));
         }
 
         let parsed_response = response

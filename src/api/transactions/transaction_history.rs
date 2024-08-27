@@ -2,7 +2,6 @@ use crate::{
     api::ShyftApi,
     constants,
     models::{self, parsed_transaction_details::ParsedTransactionDetails},
-    reqwest_ext,
 };
 
 impl ShyftApi {
@@ -16,13 +15,13 @@ impl ShyftApi {
     ///
     /// # Returns
     ///
-    /// * `Result<Vec<ParsedTransactionDetails>, reqwest_ext::Error>` - A result containing a vector of parsed transaction details or an error.
+    /// * `Result<Vec<ParsedTransactionDetails>, crate::error::Error>` - A result containing a vector of parsed transaction details or an error.
     pub async fn get_transaction_history(
         &self,
         account: &str,
         tx_num: Option<u32>,
         before_tx_signature: Option<&str>,
-    ) -> Result<Vec<ParsedTransactionDetails>, reqwest_ext::Error> {
+    ) -> Result<Vec<ParsedTransactionDetails>, crate::error::Error> {
         let url = format!("{}transaction/history", constants::URL);
 
         let mut request = self
@@ -43,7 +42,7 @@ impl ShyftApi {
         let response = request.send().await?;
 
         if !response.status().is_success() {
-            return Err(reqwest_ext::Error::StatusNot200(response.text().await?));
+            return Err(crate::error::Error::StatusNot200(response.text().await?));
         }
 
         let parsed_response = response
