@@ -25,8 +25,10 @@ shyft-rs-sdk = { git = "https://github.com/thelezend/shyft-rs-sdk.git", branch =
 
 ```rust
 use shyft_rs_sdk::ShyftApi;
+
 let api_key = "your_api_key";
-let shyft_api = ShyftApi::new(api_key, None, None, None).expect("Failed to create ShyftApi");
+let shyft_api = ShyftApi::new(api_key, None, None, None)
+    .expect("Failed to create ShyftApi");
 ```
 
 ### Fetching Transaction History
@@ -34,9 +36,9 @@ let shyft_api = ShyftApi::new(api_key, None, None, None).expect("Failed to creat
 ```rust
 let account = "your_account_address";
 let transaction_history = shyft_api
-.get_transaction_history(account, Some(10), None)
-.await
-.expect("Failed to fetch transaction history");
+    .get_transaction_history(account, Some(10), None)
+    .await
+    .expect("Failed to fetch transaction history");
 println!("{:?}", transaction_history);
 ```
 
@@ -45,9 +47,9 @@ println!("{:?}", transaction_history);
 ```rust
 let tx_signature = "your_transaction_signature";
 let parsed_transaction_details = shyft_api
-.get_parsed_transaction_details(tx_signature)
-.await
-.expect("Failed to fetch parsed transaction details");
+    .get_parsed_transaction_details(tx_signature)
+    .await
+    .expect("Failed to fetch parsed transaction details");
 println!("{:?}", parsed_transaction_details);
 ```
 
