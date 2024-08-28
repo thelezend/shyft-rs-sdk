@@ -2,8 +2,8 @@ mod common;
 
 use shyft_rs_sdk::ShyftApi;
 
-#[tokio::test]
-async fn test_get_transaction_history() {
+#[tokio::main]
+async fn main() {
     common::setup();
 
     let api_key = std::env::var("SHYFT_API_KEY").expect("SHYFT_API_KEY must be set");
@@ -28,16 +28,5 @@ async fn test_get_transaction_history() {
         )
         .await;
 
-    // Assert that the transaction history is fetched successfully
-    assert!(
-        transaction_history.is_ok(),
-        "Failed to fetch transaction history: {:?}",
-        transaction_history.err()
-    );
-
-    // Assert that the transaction history is not empty
-    assert!(
-        !transaction_history.unwrap().is_empty(),
-        "Transaction history is empty"
-    );
+    println!("{:?}", transaction_history);
 }

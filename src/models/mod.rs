@@ -1,3 +1,11 @@
+/*!
+Contains all the model structs used in the Shyft Rust SDK.
+
+<div class="warning">
+This does not necessarily cover all response types from the Shyft API.
+</div>
+*/
+
 pub mod parsed_transaction_details;
 
 use serde::{Deserialize, Serialize};
