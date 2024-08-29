@@ -1,3 +1,5 @@
+//!This module provides extensions for the reqwest library, including retry strategies.
+
 use std::time::Duration;
 
 use reqwest_retry::{

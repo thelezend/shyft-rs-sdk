@@ -1,7 +1,15 @@
+/*!
+This module contains the data structures for parsed transaction details.
+
+<div class="warning">
+This module does not necessarily cover all transaction types.
+</div>
+*/
+
 use serde::{Deserialize, Serialize};
 
 /// Struct representing parsed transaction details.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct ParsedTransactionDetails {
     /// Timestamp of the transaction.
     pub timestamp: String,
@@ -29,7 +37,7 @@ pub struct ParsedTransactionDetails {
 }
 
 /// Struct representing protocol information.
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct Protocol {
     /// Address of the protocol.
     pub address: String,
@@ -38,7 +46,7 @@ pub struct Protocol {
 }
 
 /// Struct representing an action in the transaction.
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct Action {
     /// Information about the action.
     pub info: serde_json::Value,

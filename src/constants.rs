@@ -1,3 +1,5 @@
+//! This module contains constants used throughout the Shyft Rust SDK.
+
 /// Base URL for the Shyft API
 pub const URL: &str = "https://api.shyft.to/sol/v1/";
 
