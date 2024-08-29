@@ -1,8 +1,14 @@
 # Shyft Rust SDK
 
+[![Crates.io](https://img.shields.io/crates/v/shyft-rs-sdk.svg)](https://crates.io/crates/shyft-rs-sdk)
+[![Rust](https://github.com/thelezend/shyft-rs-sdk/actions/workflows/rust.yml/badge.svg)](https://github.com/thelezend/shyft-rs-sdk/actions/workflows/rust.yml)
+[![Documentation](https://docs.rs/shyft-rs-sdk/badge.svg)](https://docs.rs/shyft-rs-sdk/)
+
 Shyft SDK is a Rust library for interacting with the [Shyft API](https://docs.shyft.to/).
 
 > **IMPORTANT: This is not an official SDK. It is a personal project for learning Rust and API development. The included endpoints are primarily for personal use in my own projects and may not cover all features of the Shyft API. However, new endpoints can be added upon request. Contributions are welcome!**
+
+[Examples](https://github.com/thelezend/shyft-rs-sdk/tree/main/examples) | [Docs](https://docs.rs/shyft-rs-sdk/)
 
 ## Features
 
@@ -20,7 +26,7 @@ cargo add shyft-rs-sdk
 
 ## Usage
 
-The [examples](./examples) folder contains various examples of how to use the Shyft Rust SDK. The [docs](https://docs.rs/shyft-rs-sdk) also provide lots of code snippets and examples.
+The [examples](https://github.com/thelezend/shyft-rs-sdk/tree/main/examples) folder contains various examples of how to use the Shyft Rust SDK. The [docs](https://docs.rs/shyft-rs-sdk) also provide lots of code snippets and examples.
 
 ## Contribution
 
