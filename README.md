@@ -20,7 +20,7 @@ cargo add shyft-rs-sdk
 
 ## Usage
 
-The [examples](./examples) folder contains various examples of how to use the Shyft Rust SDK. The docs also provide lots of code snippets and examples.
+The [examples](./examples) folder contains various examples of how to use the Shyft Rust SDK. The [docs](https://docs.rs/shyft-rs-sdk) also provide lots of code snippets and examples.
 
 ## Contribution
 
@@ -28,4 +28,4 @@ Your contributions are welcome! Please ensure your code follows the existing sty
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT OR Apache-2.0 license.

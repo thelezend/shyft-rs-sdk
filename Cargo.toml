@@ -1,7 +1,11 @@
 [package]
 name = "shyft-rs-sdk"
 version = "0.1.0"
+authors = ["thelezend"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
 edition = "2021"
+description = "Rust library for interacting with the Shyft API."
 
 [dependencies]
 reqwest = { version = "0.12.7", features = ["json"] }
