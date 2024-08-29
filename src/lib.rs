@@ -35,7 +35,9 @@ let client = ShyftApi::new(api_key, None, None, None)
 
 ### Fetching Transaction History
 
+Equivalent to [GET /transaction/history]
 
+[GET /transaction/history]: https://docs.shyft.to/solana-apis/transactions/transaction-apis#get-transaction-history
 
 ```no_run
 # #[tokio::main]
