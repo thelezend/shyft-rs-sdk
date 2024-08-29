@@ -32,12 +32,22 @@ jobs:
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
+
             - name: Set up environment variables
               run: echo "SHYFT_API_KEY=${{ secrets.SHYFT_API_KEY }}" >> $GITHUB_ENV
+
+            - name: Run tests on Linux and macOS
+              if: startsWith(matrix.os, 'ubuntu') || startsWith(matrix.os, 'macos')
+              run: cargo test --verbose
               env:
                   SHYFT_API_KEY: ${{ secrets.SHYFT_API_KEY }}
-            - name: Run tests
-              run: cargo test --verbose
+
+            - name: Run tests on Windows
+              if: startsWith(matrix.os, 'windows')
+              run: |
+                  $env:SHYFT_API_KEY="${{ secrets.SHYFT_API_KEY }}"
+                  cargo test --verbose
+              shell: pwsh
 
     docs:
         needs: build
