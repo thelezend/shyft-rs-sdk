@@ -33,9 +33,7 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v4
             - name: Set up environment variables
-              run: echo "Setting up environment variables"
-              env:
-                  SHYFT_API_KEY: ${{ secrets.SHYFT_API_KEY }}
+              run: echo "SHYFT_API_KEY=${{ secrets.SHYFT_API_KEY }}" >> $GITHUB_ENV
             - name: Run tests
               run: cargo test --verbose
 
