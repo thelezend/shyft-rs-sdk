@@ -4,7 +4,7 @@
 [![CI](https://github.com/thelezend/shyft-rs-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/thelezend/shyft-rs-sdk/actions/workflows/ci.yml)
 [![Documentation](https://docs.rs/shyft-rs-sdk/badge.svg)](https://docs.rs/shyft-rs-sdk/)
 
-Shyft SDK is a Rust library for interacting with the [Shyft API](https://docs.shyft.to/).
+`shyft-rs-sdk` is a Rust library for interacting with the [Shyft API](https://docs.shyft.to/).
 
 > **IMPORTANT: This is not an official SDK. It is a personal project for learning Rust and API development. The included endpoints are primarily for personal use in my own projects and may not cover all features of the Shyft API. However, new endpoints can be added upon request. Contributions are welcome!**
 
@@ -31,7 +31,7 @@ The [examples](https://github.com/thelezend/shyft-rs-sdk/tree/main/examples) fol
 
 ## Contribution
 
-Your contributions are welcome! Please ensure your code follows the existing style and includes documentation and tests for any new functionality.
+Your contributions are welcome! Please ensure your code follows the existing style and includes documentation, examples and tests for any new functionality.
 
 ## License
 
