@@ -14,7 +14,8 @@ async fn test_get_parsed_transaction_details() {
         "uZz2qDvLzndsTEY31YkxgRe1rYQ8MsCtS3DwhPYP1Md7u7dnUK4HW3vYzsxE6GSxFhSG5zpvqSQnSUn1sPmzTBu";
 
     // Create ShyftApi instance
-    let shyft_api = ShyftApi::new(&api_key, None, None, None).expect("Failed to create ShyftApi");
+    let shyft_api =
+        ShyftApi::new(&api_key, None, None, None, None, None).expect("Failed to create ShyftApi");
 
     // Fetch parsed transaction details
     let parsed_transaction_details = shyft_api.get_transaction_parsed(tx_signature).await;

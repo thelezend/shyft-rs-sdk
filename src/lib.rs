@@ -29,7 +29,7 @@ You can configure the retry strategy by providing optional parameters when creat
 use shyft_rs_sdk::ShyftApi;
 
 let api_key = "your_api_key";
-let client = ShyftApi::new(api_key, None, None, None)
+let client = ShyftApi::new(api_key, None, None, None, None, None)
     .expect("Failed to create ShyftApi");
 ```
 
@@ -45,7 +45,7 @@ Equivalent to [GET /transaction/history]
 # use shyft_rs_sdk::ShyftApi;
 #
 # let api_key = "your_api_key";
-# let client = ShyftApi::new(api_key, None, None, None).unwrap();
+# let client = ShyftApi::new(api_key, None, None, None, None, None).unwrap();
 let account = "your_account_address";
 let transaction_history = client
     .get_transaction_history(account, Some(10), None, None, Some(true), None)
@@ -67,7 +67,7 @@ Equivalent to [GET /transaction/parsed]
 # use shyft_rs_sdk::ShyftApi;
 #
 # let api_key = "your_api_key";
-# let client = ShyftApi::new(api_key, None, None, None).unwrap();
+# let client = ShyftApi::new(api_key, None, None, None, None, None).unwrap();
 let tx_signature = "your_transaction_signature";
 let parsed_transaction_details = client
     .get_transaction_parsed(tx_signature)
@@ -93,5 +93,5 @@ mod reqwest_ext;
 
 pub mod models;
 
-pub use api::ShyftApi;
+pub use api::{Commitment, Network, ShyftApi};
 pub use error::Error;

@@ -8,7 +8,7 @@
 //! use shyft_rs_sdk::ShyftApi;
 //!
 //! let api_key = "your_api_key";
-//! let client = ShyftApi::new(api_key, None, None, None).unwrap();
+//! let client = ShyftApi::new(api_key, None, None, None, None, None).unwrap();
 //! ```
 //!
 //! The [`ShyftApi`] struct allows you to create a new client instance and interact with the Shyft API.
@@ -40,10 +40,37 @@ pub struct ShyftApi {
     default_params: HashMap<String, String>,
 }
 
+/// Enum representing different Shyft API networks.
+///
+/// This enum is used to specify the network to interact with when making API requests.
+#[derive(strum_macros::Display, Debug, Clone)]
+#[strum(serialize_all = "kebab-case")]
+pub enum Network {
+    /// Mainnet Beta network
+    MainnetBeta,
+    /// Devnet network
+    Devnet,
+    /// Testnet network
+    Testnet,
+}
+
+#[derive(strum_macros::Display, Debug, Clone)]
+#[strum(serialize_all = "snake_case")]
+/// Enum representing the commitment level for transactions.
+///
+/// This enum is used to specify the commitment level when making API requests.
+pub enum Commitment {
+    /// The transaction has been confirmed by the cluster.
+    Confirmed,
+    /// The transaction has been finalized and will not be rolled back.
+    Finalized,
+}
+
 impl ShyftApi {
     /// Creates a new instance of the Shyft API client.
     ///
-    /// This function initializes a new Shyft API client with the provided API key and optional retry parameters.
+    /// This function initializes a new Shyft API client with the provided API key and optional parameters
+    /// for retry strategy, network, and commitment level.
     ///
     /// # Arguments
     ///
@@ -51,6 +78,8 @@ impl ShyftApi {
     /// * `min_retry_interval` - An optional minimum retry interval in seconds.
     /// * `max_retry_interval` - An optional maximum retry interval in seconds.
     /// * `max_retries` - An optional maximum number of retries.
+    /// * `network` - An optional network to interact with.
+    /// * `commitment` - An optional commitment level for transactions.
     ///
     /// # Errors
     ///
@@ -62,18 +91,20 @@ impl ShyftApi {
     /// use shyft_rs_sdk::ShyftApi;
     ///
     /// let api_key = "your_api_key";
-    /// let client = ShyftApi::new(api_key, None, None, None)?;
+    /// let client = ShyftApi::new(api_key, None, None, None, None, None)?;
     /// # Ok::<(), shyft_rs_sdk::Error>(())
     /// ```
     ///
-    /// With custom retry parameters:
+    /// With custom parameters:
     /// ```
-    /// # use shyft_rs_sdk::ShyftApi;
+    /// # use shyft_rs_sdk::{ShyftApi, Network, Commitment};
     /// # let api_key = "your_api_key";
     /// let min_retry_interval = Some(1);
     /// let max_retry_interval = Some(10);
     /// let max_retries = Some(5);
-    /// let client = ShyftApi::new(api_key, min_retry_interval, max_retry_interval, max_retries)?;
+    /// let network = Some(Network::MainnetBeta);
+    /// let commitment = Some(Commitment::Confirmed);
+    /// let client = ShyftApi::new(api_key, min_retry_interval, max_retry_interval, max_retries, network, commitment)?;
     /// # Ok::<(), shyft_rs_sdk::Error>(())
     /// ```
     pub fn new(
@@ -81,6 +112,8 @@ impl ShyftApi {
         min_retry_interval: Option<u64>,
         max_retry_interval: Option<u64>,
         max_retries: Option<u32>,
+        network: Option<Network>,
+        commitment: Option<Commitment>,
     ) -> Result<Self, crate::error::Error> {
         let mut headers = header::HeaderMap::new();
 
@@ -94,7 +127,13 @@ impl ShyftApi {
             .build()?;
 
         let mut default_params = HashMap::new();
-        default_params.insert("network".to_string(), "mainnet-beta".to_string());
+        default_params.insert(
+            "network".to_string(),
+            network.unwrap_or(Network::MainnetBeta).to_string(),
+        );
+        if let Some(commitment) = commitment {
+            default_params.insert("commitment".to_string(), commitment.to_string());
+        }
 
         let retry_s = get_retry_strategy(
             min_retry_interval.unwrap_or(constants::MIN_RETRY_INTERVAL),
@@ -137,7 +176,7 @@ impl ShyftApi {
     /// # use shyft_rs_sdk::ShyftApi;
     /// #
     /// # let api_key = "your_api_key";
-    /// # let client = ShyftApi::new(api_key, None, None, None).unwrap();
+    /// # let client = ShyftApi::new(api_key, None, None, None, None, None).unwrap();
     /// let history = client.get_transaction_history("account_address", Some(10), None, None, Some(true), None).await?;
     /// # Ok(())
     /// # }
@@ -212,7 +251,7 @@ impl ShyftApi {
     /// # use shyft_rs_sdk::ShyftApi;
     /// #
     /// # let api_key = "your_api_key";
-    /// # let client = ShyftApi::new(api_key, None, None, None).unwrap();
+    /// # let client = ShyftApi::new(api_key, None, None, None, None, None).unwrap();
     /// let transaction_details = client.get_transaction_parsed("transaction_signature").await?;
     /// # Ok(())
     /// # }
