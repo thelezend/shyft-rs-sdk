@@ -12,6 +12,7 @@ This is not an official SDK. It is a personal project for learning Rust and API 
 - Configurable retry strategy for API requests.
 - Fetch transaction history for a given account.
 - Retrieve parsed transaction details for a specific transaction signature.
+- Fetch parsed bulk transactions in a single call.
 
 ## Configuration
 
@@ -20,6 +21,8 @@ You can configure the retry strategy by providing optional parameters when creat
 - `min_retry_interval`: Minimum retry interval in milliseconds.
 - `max_retry_interval`: Maximum retry interval in milliseconds.
 - `max_retries`: Maximum number of retries.
+- `network`: Network to interact with(mainnet-beta, devnet, testnet).
+- `commitment`: Commitment level for transactions(confirmed, finalised).
 
 ## Usage
 
@@ -74,6 +77,32 @@ let parsed_transaction_details = client
     .await
     .expect("Failed to fetch parsed transaction details");
 println!("{:?}", parsed_transaction_details);
+# Ok(())
+# }
+```
+
+### Fetching Parsed Bulk Transactions
+
+Equivalent to [POST /transaction/parse_selected]
+
+[POST /transaction/parse_selected]: https://docs.shyft.to/solana-apis/transactions/transaction-apis#post-transaction-parse_selected
+
+```no_run
+# #[tokio::main]
+# async fn main() -> Result<(), shyft_rs_sdk::Error> {
+# use shyft_rs_sdk::ShyftApi;
+#
+# let api_key = "your_api_key";
+# let client = ShyftApi::new(api_key, None, None, None, None, None).unwrap();
+let tx_signatures = vec![
+    "your_transaction_signature_1".to_owned(),
+    "your_transaction_signature_2".to_owned(),
+];
+let parsed_transactions = client
+    .get_transaction_parse_selected(&tx_signatures, Some(true), Some(true))
+    .await
+    .expect("Failed to fetch parsed bulk transactions");
+println!("{:?}", parsed_transactions);
 # Ok(())
 # }
 ```

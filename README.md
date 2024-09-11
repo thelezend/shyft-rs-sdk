@@ -15,6 +15,7 @@ Shyft SDK is a Rust library for interacting with the [Shyft API](https://docs.sh
 - Configurable retry strategy for API requests.
 - Fetch transaction history for a given account. ([GET /transaction/history](https://docs.shyft.to/solana-apis/transactions/transaction-apis#get-transaction-history))
 - Retrieve parsed transaction details for a specific transaction signature. ([GET /transaction/parsed](https://docs.shyft.to/solana-apis/transactions/transaction-apis#parsed-transaction))
+- Fetch parsed bulk transactions in a single call. ([POST /transaction/parse_selected](https://docs.shyft.to/solana-apis/transactions/transaction-apis#post-transaction-parse_selected))
 
 ## Installation
 
