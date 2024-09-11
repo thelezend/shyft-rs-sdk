@@ -19,14 +19,11 @@ Shyft SDK is a Rust library for interacting with the [Shyft API](https://docs.sh
 
 ## Installation
 
-Add the following to your `Cargo.toml`:
+Run the following command in your project directory:
 
-```toml
-[dependencies]
-shyft-rs-sdk = { git = "https://github.com/thelezend/shyft-rs-sdk.git", branch = "main"}
+```bash
+cargo add shyft-rs-sdk
 ```
-
-If your `Cargo.lock` file points to an older commit of the repository, run `cargo update -p shyft-rs-sdk` to update to the latest commit.
 
 ## Usage
 
