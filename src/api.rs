@@ -131,9 +131,10 @@ impl ShyftApi {
             "network".to_string(),
             network.unwrap_or(Network::MainnetBeta).to_string(),
         );
-        if let Some(commitment) = commitment {
-            default_params.insert("commitment".to_string(), commitment.to_string());
-        }
+        default_params.insert(
+            "commitment".to_string(),
+            commitment.unwrap_or(Commitment::Confirmed).to_string(),
+        );
 
         let retry_s = get_retry_strategy(
             min_retry_interval.unwrap_or(constants::MIN_RETRY_INTERVAL),
@@ -275,6 +276,69 @@ impl ShyftApi {
 
         let parsed_response = response
             .json::<models::Response<ParsedTransactionDetails>>()
+            .await?
+            .result;
+        Ok(parsed_response)
+    }
+
+    /// Retrieves parsed transaction details for given transaction signatures. Equivalent to [POST /transaction/parse_selected]
+    ///
+    /// [POST /transaction/parse_selected]: https://docs.shyft.to/solana-apis/transactions/transaction-apis#post-transaction-parse_selected
+    ///
+    /// # Arguments
+    ///
+    /// * `transaction_signatures` - A slice of strings that holds the transaction signatures.
+    /// * `enable_raw` - An optional boolean to include raw transaction details.
+    /// * `enable_events` - An optional boolean to include events in the transaction details.
+    ///
+    /// # Errors
+    ///
+    /// This function will return an error if the request fails or the response status is not 200.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// # #[tokio::main]
+    /// # async fn main() -> Result<(), shyft_rs_sdk::Error> {
+    /// # use shyft_rs_sdk::ShyftApi;
+    /// #
+    /// # let api_key = "your_api_key";
+    /// # let client = ShyftApi::new(api_key, None, None, None, None, None).unwrap();
+    /// let transaction_signatures = vec!["transaction_signature1".to_string(), "transaction_signature2".to_string()];
+    /// let transaction_details = client.get_transaction_parse_selected(&transaction_signatures, Some(true), Some(true)).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub async fn get_transaction_parse_selected(
+        &self,
+        transaction_signatures: &[String],
+        enable_raw: Option<bool>,
+        enable_events: Option<bool>,
+    ) -> Result<Vec<ParsedTransactionDetails>, crate::error::Error> {
+        let url = format!("{}transaction/parse_selected", constants::URL);
+        let request = self
+            .client
+            .post(url)
+            .header(header::CONTENT_TYPE, "application/json")
+            .body(
+                serde_json::to_string(&serde_json::json!({
+                    "network": self.default_params.get("network").unwrap(),
+                    "transaction_signatures": transaction_signatures,
+                    "enable_raw": enable_raw.unwrap_or(false),
+                    "enable_events": enable_events.unwrap_or(false),
+                    "commitment": self.default_params.get("commitment").unwrap(),
+                }))
+                .unwrap(),
+            );
+
+        let response = request.send().await?;
+
+        if !response.status().is_success() {
+            return Err(crate::error::Error::StatusNot200(response.text().await?));
+        }
+
+        let parsed_response = response
+            .json::<models::Response<Vec<ParsedTransactionDetails>>>()
             .await?
             .result;
         Ok(parsed_response)
